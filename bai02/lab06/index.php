@@ -37,7 +37,7 @@
     const form = document.querySelector('form')
     const resultElement = document.getElementById('result')
 
-    form.addEventListener('submit', e => {
+    function handleOnSubmit(e) {
       e.preventDefault()
 
       const data = {
@@ -58,7 +58,10 @@
         })
         .catch(err => console.log(err))
 
-    })
+
+    }
+
+    form.addEventListener('submit', handleOnSubmit)
   </script>
 
   <script>
