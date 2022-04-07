@@ -1,0 +1,18 @@
+[
+  {
+    "Ten": "Teo",
+    "Tuoi": 20,
+    "Diem": [
+      {
+        "Ten": "Toan",
+        "HeSo": 1,
+        "Diem": 7
+      },
+      {
+        "Ten": "Lap Trinh",
+        "HeSo": 2,
+        "Diem": 8
+      }
+    ]
+  }
+]

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!-- thong tin sinh vien -->
+<DanhSachSinhVien>
+
+    <SinhVien>
+        <Ten>Teo</Ten>
+        <Tuoi>20</Tuoi>
+        <Diem>
+            <Toan HeSo="1">7</Toan>
+            <LapTrinh HeSo="2">8</LapTrinh>
+        </Diem>
+    </SinhVien>
+
+    <SinhVien>
+        <Ten>Ti</Ten>
+        <Tuoi>21</Tuoi>
+        <Diem>
+            <Toan HeSo="1">5</Toan>
+            <LapTrinh HeSo="2">5</LapTrinh>
+        </Diem>
+    </SinhVien>
+
+    <SinhVien>
+        <Ten>Mui</Ten>
+        <Tuoi>19</Tuoi>
+        <Diem>
+            <Toan HeSo="1">9</Toan>
+            <LapTrinh HeSo="2">9</LapTrinh>
+        </Diem>
+    </SinhVien>
+
+</DanhSachSinhVien>
