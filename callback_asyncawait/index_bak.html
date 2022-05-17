@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Callback / Promise / Async-Await</h1>
+
+    <button id="btnFetchData">Lấy dữ liệu todo</button>
+    <h2 id="status"></h2>
+
+    <div id="root"></div>
+
+    <script>
+      const button = document.getElementById('btnFetchData');
+      const statusEl = document.getElementById('status');
+
+      $apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+
+      button.addEventListener('click', function () {
+        statusEl.innerHTML = 'Đang lấy dữ liệu ...';
+
+        fetchUsingAyncAwait();
+        // fetchUsingPromise();
+      });
+
+      async function fetchUsingAyncAwait() {
+        debugger;
+
+        const responseText = await fetch($apiUrl);
+        const data = await responseText.json();
+
+        statusEl.innerHTML = 'Đã lấy dữ liệu xong';
+
+        document.getElementById('root').innerHTML = data
+          .map((s) => JSON.stringify(s))
+          .join('<br>');
+      }
+
+      function fetchUsingPromise() {
+        debugger;
+
+        const fetchPromise = fetch($apiUrl);
+
+        const jsonPromise = fetchPromise.then(function (byte) {
+          return byte.json();
+        });
+
+        jsonPromise.then(function (data) {
+          statusEl.innerHTML = 'Đã lấy dữ liệu xong';
+
+          document.getElementById('root').innerHTML = data
+            .map((s) => JSON.stringify(s))
+            .join('<br>');
+        });
+      }
+
+      function fetchUsingXMLHttpRequest() {
+        function handleOnResponseReceive() {
+          statusEl.innerHTML = 'Đã lấy dữ liệu xong';
+          console.log(this.responseText);
+        }
+
+        var oReq = new XMLHttpRequest();
+
+        oReq.addEventListener('load', function () {
+          statusEl.innerHTML = 'Đã lấy dữ liệu xong';
+          const data = JSON.parse(this.responseText);
+
+          document.getElementById('root').innerHTML = data
+            .map((s) => JSON.stringify(s))
+            .join('<br>');
+        });
+
+        oReq.open('GET', $apiUrl);
+        oReq.send();
+      }
+    </script>
+  </body>
+</html>
