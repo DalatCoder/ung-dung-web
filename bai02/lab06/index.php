@@ -54,6 +54,7 @@
         })
         .then(res => res.json())
         .then(data => {
+
           resultElement.innerHTML = JSON.stringify(data)
         })
         .catch(err => console.log(err))
