@@ -10,7 +10,4 @@ $statement = $pdo->query($sql);
 // get all todos
 $todos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-response_data('success', [
-    'todos' => $todos,
-    'total' => count($todos)
-], 'Lấy danh sách todo thành công', 200);
+response_data('success', $todos, 'Lấy danh sách todo thành công', 200);

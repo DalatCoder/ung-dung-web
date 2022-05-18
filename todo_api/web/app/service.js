@@ -9,8 +9,8 @@ const ServiceModule = (function () {
     const response = await stream.json()
 
     if (response.status == 'success') {
-      AppData.todos = response.data.todos
-      AppData.total = response.data.total
+      AppData.todos = response.data
+      AppData.total = response.data.length
 
       return response.data
     }
