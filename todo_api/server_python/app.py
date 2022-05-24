@@ -4,34 +4,23 @@ from datetime import datetime
 import mysql.connector
 from mysql.connector import Error
 
-app = Flask(__name__)
+from flask_cors import CORS
 
-todos = [
-    {
-        'id': 1,
-        'title': 'Cong viec 1',
-        'content': 'Noi dung cong viec 1',
-        'completed_at': None,
-        'created_at': '2022-20-11'
-    },
-    {
-        'id': 2,
-        'title': 'Cong viec 2',
-        'content': 'Noi dung cong viec 2',
-        'completed_at': None,
-        'created_at': '2022-20-12'
-    },
-]
+app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 def response_helper(status, data, message, code):
-    response = {
+    response_data = {
         'status': status,
         'data': data,
         'msg': message
     }
 
-    return jsonify(response), code
+    response = jsonify(response_data)
+    response.headers.add("Content-Type", "application/json")
+
+    return response, code
 
 
 @app.route('/api/v1/todos')
@@ -230,7 +219,7 @@ def make_todo_complete(id):
                 'created_at': str(record[5])
             }
 
-            return response_helper('success', todo, 'Cập nhật trạng thái công việc thành công', 201)
+            return response_helper('success', todo, 'Cập nhật trạng thái công việc thành công', 200)
 
     except Error as e:
         return response_helper('error', None, e.msg, 500)
