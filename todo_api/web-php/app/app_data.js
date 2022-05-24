@@ -1,5 +1,5 @@
 const AppData = {
-  base_api_url: 'http://172.20.10.3:2010',
+  base_api_url: 'http://localhost:5000',
   todos: [],
   total: 0,
   perPage: 5,
