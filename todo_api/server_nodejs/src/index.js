@@ -15,23 +15,6 @@ const mysqlConfig = {
 
 // defining the Express app
 const app = express();
-// defining an array to work as the database (temporary solution)
-let todos = [
-  {
-    id: 1,
-    title: "Cong viec 1",
-    content: "Mo ta cong viec 1",
-    completed_at: null,
-    created_at: "2022-11-20"
-  },
-  {
-    id: 2,
-    title: "Cong viec 2",
-    content: "Mo ta cong viec 2",
-    completed_at: null,
-    created_at: "2022-11-21"
-  },
-];
 
 // adding Helmet to enhance your Rest API's security
 app.use(helmet());
