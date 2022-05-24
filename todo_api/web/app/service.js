@@ -1,9 +1,8 @@
 const ServiceModule = (function () {
   async function getTodos() {
-    const stream = await fetch(`${AppData.base_api_url}/todo/get.php`, {
+    const stream = await fetch(`${AppData.base_api_url}/api/todo`, {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
       }
     })
     const response = await stream.json()
@@ -24,12 +23,11 @@ const ServiceModule = (function () {
       content
     }
 
-    const stream = await fetch(`${AppData.base_api_url}/todo/create.php`, {
+    const stream = await fetch(`${AppData.base_api_url}/api/todo/create`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
       }
     })
     const response = await stream.json()
@@ -45,17 +43,14 @@ const ServiceModule = (function () {
   }
 
   async function changeTodoStatus(todoId, newStatus) {
-    const data = {
-      id: todoId,
-      status: newStatus
-    }
+    let apiUrl = `${AppData.base_api_url}/api/todo/complete/${todoId}`
+    if (newStatus == false)
+      apiUrl = `${AppData.base_api_url}/api/todo/incomplete/${todoId}`
 
-    const stream = await fetch(`${AppData.base_api_url}/todo/change_status.php`, {
-      method: 'POST',
-      body: JSON.stringify(data),
+    const stream = await fetch(apiUrl, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
       }
     })
     const response = await stream.json()
@@ -70,16 +65,10 @@ const ServiceModule = (function () {
   }
 
   async function trashTodo(todoId) {
-    const data = {
-      id: todoId
-    }
-
-    const stream = await fetch(`${AppData.base_api_url}/todo/delete.php`, {
-      method: 'POST',
-      body: JSON.stringify(data),
+    const stream = await fetch(`${AppData.base_api_url}/api/todo/delete/${todoId}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
       }
     })
     const response = await stream.json()
@@ -96,17 +85,15 @@ const ServiceModule = (function () {
 
   async function updateTodo(todoId, title, content) {
     const data = {
-      id: todoId,
       title: title,
       content: content
     }
 
-    const stream = await fetch(`${AppData.base_api_url}/todo/update.php`, {
-      method: 'POST',
+    const stream = await fetch(`${AppData.base_api_url}/api/todo/update/${todoId}`, {
+      method: 'PUT',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
       }
     })
     const response = await stream.json()
