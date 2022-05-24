@@ -8,12 +8,12 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/dalatcoder/todo_api/model"
 	"github.com/dalatcoder/todo_api/utils"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 var databaseConnectionString string = "root:@tcp(127.0.0.1:3306)/todos?parseTime=true"
@@ -177,7 +177,7 @@ func updateTodo(w http.ResponseWriter, r *http.Request) {
 
 	var updatedTodo model.Todo
 
-	err = db.QueryRow("SELECT * FROM todos where id = ?", todo.Id).Scan(&updatedTodo.Id, &updatedTodo.UserId, &updatedTodo.Title, &updatedTodo.Content, &updatedTodo.CompletedAt, &updatedTodo.CreatedAt)
+	err = db.QueryRow("SELECT * FROM todos where id = ?", todoId).Scan(&updatedTodo.Id, &updatedTodo.UserId, &updatedTodo.Title, &updatedTodo.Content, &updatedTodo.CompletedAt, &updatedTodo.CreatedAt)
 	if err != nil {
 		utils.ResponseHelper(w, "fail", nil, err.Error(), 500)
 		return
@@ -199,7 +199,7 @@ func completeTodo(w http.ResponseWriter, r *http.Request) {
 
 	defer db.Close()
 
-	sql := "UPDATE todos SET completed_at = '" + time.Now().Format("20060102150405") + "'"
+	sql := "UPDATE todos SET completed_at = NOW() WHERE id = " + strconv.Itoa(todoId)
 	_, err = db.Exec(sql)
 
 	if err != nil {
@@ -231,7 +231,7 @@ func inCompleteTodo(w http.ResponseWriter, r *http.Request) {
 
 	defer db.Close()
 
-	sql := "UPDATE todos SET completed_at = NULL"
+	sql := "UPDATE todos SET completed_at = NULL WHERE id = " + strconv.Itoa(todoId)
 	_, err = db.Exec(sql)
 
 	if err != nil {
@@ -261,7 +261,8 @@ func handleRequests() {
 	router.HandleFunc("/api/v1/todos/incomplete/{id}", inCompleteTodo).Methods("PUT")
 	router.HandleFunc("/api/v1/todos/delete/{id}", deleteTodo).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServe(":5000", router))
+	log.Fatal(http.ListenAndServe(":5000", cors.AllowAll().Handler(router)))
+	// log.Fatal(http.ListenAndServe(":5000", router))
 }
 
 func main() {
