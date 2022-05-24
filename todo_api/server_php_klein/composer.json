@@ -1,0 +1,13 @@
+{
+  "name": "todo/todo",
+  "require": {
+    "monolog/monolog": "2.0.*",
+    "klein/klein": "^2.1",
+    "fruitcake/php-cors": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Todo\\": "src/"
+    }
+  }
+}
