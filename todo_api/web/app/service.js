@@ -1,6 +1,6 @@
 const ServiceModule = (function () {
   async function getTodos() {
-    const stream = await fetch(`${AppData.base_api_url}/api/todo`, {
+    const stream = await fetch(`${AppData.base_api_url}/api/v1/todos`, {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -23,7 +23,7 @@ const ServiceModule = (function () {
       content
     }
 
-    const stream = await fetch(`${AppData.base_api_url}/api/todo/create`, {
+    const stream = await fetch(`${AppData.base_api_url}/api/v1/todos/create`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -43,9 +43,9 @@ const ServiceModule = (function () {
   }
 
   async function changeTodoStatus(todoId, newStatus) {
-    let apiUrl = `${AppData.base_api_url}/api/todo/complete/${todoId}`
+    let apiUrl = `${AppData.base_api_url}/api/v1/todos/complete/${todoId}`
     if (newStatus == false)
-      apiUrl = `${AppData.base_api_url}/api/todo/incomplete/${todoId}`
+      apiUrl = `${AppData.base_api_url}/api/v1/todos/incomplete/${todoId}`
 
     const stream = await fetch(apiUrl, {
       method: 'PUT',
@@ -65,7 +65,7 @@ const ServiceModule = (function () {
   }
 
   async function trashTodo(todoId) {
-    const stream = await fetch(`${AppData.base_api_url}/api/todo/delete/${todoId}`, {
+    const stream = await fetch(`${AppData.base_api_url}/api/v1/todos/delete/${todoId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const ServiceModule = (function () {
       content: content
     }
 
-    const stream = await fetch(`${AppData.base_api_url}/api/todo/update/${todoId}`, {
+    const stream = await fetch(`${AppData.base_api_url}/api/v1/todos/update/${todoId}`, {
       method: 'PUT',
       body: JSON.stringify(data),
       headers: {
